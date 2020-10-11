@@ -13,9 +13,9 @@ const ErrorMessages = require("../../utils/ErrorMessages");
 
 const postService = require("./service");
 
-exports.create = async (req, res, next) => {
+exports.create = async ({ body }, res, next) => {
   try {
-    const { author } = req.body;
+    const { author } = body;
     const authorDocument = await userService.findByName(author);
     if (!authorDocument) {
       throw new APIError({
