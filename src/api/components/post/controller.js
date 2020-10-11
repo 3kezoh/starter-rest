@@ -23,7 +23,6 @@ exports.create = async ({ body }, res, next) => {
         status: StatusCodes.NOT_FOUND,
       });
     }
-    console.log(res);
     const postDocument = await postService.create(authorDocument._id);
     res.status(StatusCodes.CREATED);
     return res.json({ message: "Post created", postDocument });
