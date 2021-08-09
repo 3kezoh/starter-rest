@@ -32,6 +32,7 @@ describe("Auth API", () => {
 
   beforeEach(async () => {
     yami = {
+      name: "yami",
       email: "yami@yami.com",
       password: "password",
       confirmPassword: "password",
@@ -135,10 +136,7 @@ describe("Auth API", () => {
 
   describe("POST /auth/login", () => {
     it("should response 200 with an access token", async () => {
-      const { body } = await request(app)
-        .post("/auth/login")
-        .send(user)
-        .expect(StatusCodes.OK);
+      const { body } = await request(app).post("/auth/login").send(user).expect(StatusCodes.OK);
       expect(body.message).to.equal(SuccessMessages.LOG_IN_SUCCESS);
       expect(body.token).to.be.an("string");
       expect(body.refreshToken).to.be.an("string");
@@ -214,9 +212,7 @@ describe("Auth API", () => {
       expect(body.errors).to.be.an("array");
       expect(body.errors).to.have.lengthOf(1);
       expect(body.errors[0].field).to.equal("refreshToken");
-      expect(body.errors[0].message).to.equal(
-        ErrorMessages.REFRESH_TOKEN_EMPTY
-      );
+      expect(body.errors[0].message).to.equal(ErrorMessages.REFRESH_TOKEN_EMPTY);
     });
 
     it("should response 422 when the refresh token is expired", async () => {
@@ -308,9 +304,7 @@ describe("Auth API", () => {
       expect(body.errors).to.be.an("array");
       expect(body.errors).to.have.lengthOf(1);
       expect(body.errors[0].field).to.equal("passwordResetToken");
-      expect(body.errors[0].message).to.equal(
-        ErrorMessages.PASSWORD_RESET_TOKEN_EMPTY
-      );
+      expect(body.errors[0].message).to.equal(ErrorMessages.PASSWORD_RESET_TOKEN_EMPTY);
     });
 
     it("should response 422 when the password is too short", async () => {
